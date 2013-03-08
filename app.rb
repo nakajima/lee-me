@@ -38,4 +38,9 @@ class LeeMeApp < Sinatra::Application
       redirect 'http://tedgambordella.com/blog/wp-content/uploads/2010/12/bruce-lee-picture-large-180x300.jpg'
     end
   end
+
+  get '/stats' do
+    content_type :text
+    `ls -l tmp/*-result/* | wc -l`.strip
+  end
 end
