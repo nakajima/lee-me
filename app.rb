@@ -9,7 +9,10 @@ class LeeMeApp < Sinatra::Application
   end
 
   get '/' do
-    unless url = params[:url]
+    match = env['REQUEST_URI'].match(/url=([^&]*)/)
+    url = match && match[1]
+    
+    unless url
       content_type :text
       return "You need to pass a URL. http://#{request.host}/?url=YOUR_PHOTO_URL"
     end
@@ -26,7 +29,7 @@ class LeeMeApp < Sinatra::Application
     end
 
     # Download the new file
-    `curl -o #{Dir.pwd}/tmp/#{File.basename(url)} #{url}`
+    puts `curl -v -o "#{Dir.pwd}/tmp/#{File.basename(url)}" "#{url}"`
 
     File.read LeeMe.lean_into_it File.join(Dir.pwd, 'tmp', filename)
   end
