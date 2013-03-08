@@ -10,7 +10,8 @@ class LeeMeApp < Sinatra::Application
 
   get '/' do
     unless url = params[:url]
-      return "nope"
+      content_type :text
+      return "You need to pass a URL. http://#{request.host}/?url=YOUR_PHOTO_URL"
     end
 
     # Ok, it's jpg
