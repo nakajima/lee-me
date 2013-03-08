@@ -25,7 +25,7 @@ class LeeMeApp < Sinatra::Application
     end
 
     # Download the new file
-    `wget -O #{Dir.pwd}/tmp/#{File.basename(url)} #{url}`
+    `curl -o #{Dir.pwd}/tmp/#{File.basename(url)} #{url}`
 
     File.read LeeMe.lean_into_it File.join(Dir.pwd, 'tmp', filename)
   end
