@@ -9,6 +9,7 @@ class LeeMeApp < Sinatra::Application
   end
 
   get '/' do
+    # Get the unescaped 'url' param
     match = env['REQUEST_URI'].match(/url=([^&]*)/)
     url = match && match[1]
     
