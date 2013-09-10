@@ -31,7 +31,7 @@ class LeeMeApp < Sinatra::Application
       end
 
       # Download the new file
-      puts `curl -v -o "#{Dir.pwd}/tmp/#{File.basename(url)}" "#{url}"`
+      puts `curl -v -L -o "#{Dir.pwd}/tmp/#{File.basename(url)}" "#{url}"`
 
       File.read LeeMe.lean_into_it File.join(Dir.pwd, 'tmp', filename)
     rescue
