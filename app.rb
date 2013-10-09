@@ -4,10 +4,6 @@ require 'open-uri'
 require_relative 'lib/lee-me.rb'
 
 class LeeMeApp < Sinatra::Application
-  configure do
-    `mkdir -p #{Dir.pwd}/tmp`
-  end
-
   get '/' do
     begin
       # Get the unescaped 'url' param
@@ -27,13 +23,10 @@ class LeeMeApp < Sinatra::Application
 
       # Maybe we have it already
       if result = LeeMe.already_correct(filename)
-        return File.read result
+        return result
       end
 
-      # Download the new file
-      puts `curl -v -L -o "#{Dir.pwd}/tmp/#{File.basename(url)}" "#{url}"`
-
-      File.read LeeMe.lean_into_it File.join(Dir.pwd, 'tmp', filename)
+      LeeMe.lean_into_it url
     rescue
       redirect 'http://tedgambordella.com/blog/wp-content/uploads/2010/12/bruce-lee-picture-large-180x300.jpg'
     end
