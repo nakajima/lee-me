@@ -31,7 +31,7 @@ module LeeMe
     height = image.rows
     height_for_lee = height / 2
 
-    resized = lee.resize_to_fit!(lee.rows, height_for_lee)
+    resized = lee.resize_to_fit!(image.columns, height_for_lee)
     offset = height - height_for_lee
     cache[filename] = image.composite!(resized, 0, offset, Magick::OverCompositeOp).to_blob
   end
